@@ -3,28 +3,28 @@ import { Book } from "../models/Book.js";
 
 export const resolvers = {
   Query: {
-    books: () => {
-      return Book.find({});
+    books: async () => {
+      return await Book.find({});
     },
-    book: (parent, args) => {
-      return Book.findByID(args.id);
+    book: async (parent, args) => {
+      return await Book.findOne({ name: args.name });
     },
-    authors: () => {
-      return Author.find({});
+    authors: async () => {
+      return await Author.find({});
     },
-    author: (parent, args) => {
-      return Author.findById(args.id);
+    author: async (parent, args) => {
+      return await Author.findOne({ name: args.name });
     },
   },
   Book: {
-    author: (parent, args) => {
-      return Author.findById(parent.id);
+    author: async (parent, args) => {
+      return await Author.findOne({ name: parent.authorName });
     },
   },
   Author: {
-    books: (parent, args) => {
-      return Book.find({
-        authorId: parent.id,
+    books: async (parent, args) => {
+      return await Book.find({
+        authorName: parent.name,
       });
     },
   },
@@ -33,7 +33,7 @@ export const resolvers = {
       const newBook = new Book({
         name: args.input.name,
         genre: args.input.genre,
-        author: args.input.author,
+        authorName: args.input.authorName,
       });
       const res = await newBook.save(); //writing to DB
       return {
@@ -51,6 +51,12 @@ export const resolvers = {
         id: res.id,
         ...res._doc,
       };
+    },
+    deleteBooks: async (parent, args) => {
+      return (await Book.deleteMany({})).deletedCount;
+    },
+    deleteAuthors: async (parent, args) => {
+      return (await Author.deleteMany({})).deletedCount;
     },
   },
 };

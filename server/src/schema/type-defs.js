@@ -15,14 +15,14 @@ export const typeDefs = gql`
   }
   type Query {
     books: [Book]
-    book(id: ID!): Book
+    book(name: String!): Book!
     authors: [Author]
-    author(id: ID!): Author
+    author(name: String!): Author
   }
   input createBookInput {
     name: String
     genre: String
-    authorID: ID
+    authorName: String
   }
   input createAuthorInput {
     name: String
@@ -31,5 +31,7 @@ export const typeDefs = gql`
   type Mutation {
     createBook(input: createBookInput): Book
     createAuthor(input: createAuthorInput): Author
+    deleteBooks: Int
+    deleteAuthors: Int
   }
 `;

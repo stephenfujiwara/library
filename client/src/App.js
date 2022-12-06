@@ -1,38 +1,21 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  HttpLink,
-  from,
-} from "@apollo/client";
-import { onError } from "@apollo/client/link/error";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
+import "./App.css";
+import AddBook from "./components/AddBook";
 import BookList from "./components/BookList";
 
-const errorLink = onError(({ graphqlErrors, networkError }) => {
-  if (graphqlErrors) {
-    graphqlErrors.map(({ message, location, path }) => {
-      alert(`Graphql error ${message}`);
-    });
-  }
-});
-
-const link = from([
-  errorLink,
-  new HttpLink({ uri: "http://localhost:4000/graphql" }),
-]);
-
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: link,
-});
-
 function App() {
+  // create instance of Apollo Client to make GraphQL queries
+  const client = new ApolloClient({
+    // cache to reduce unecessary re-queries
+    cache: new InMemoryCache(),
+    uri: "http://localhost:5000/graphql",
+  });
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <h1>Reading List</h1>
         <BookList />
+        <AddBook />
       </div>
     </ApolloProvider>
   );

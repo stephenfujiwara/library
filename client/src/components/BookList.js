@@ -1,15 +1,29 @@
-import React from "react";
-import { useQuery, gql } from "@apollo/client";
-import { GET_BOOKS } from "../GraphQL/Queries";
+import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
+
+import BookDetails from "../components/BookDetails";
+import { QUERY_ALL_BOOKS } from "../queries/queries";
 
 export default function BookList() {
-  const stuff = useQuery(GET_BOOKS);
-  console.log(stuff);
+  const { data, loading, error } = useQuery(QUERY_ALL_BOOKS);
+
+  if (error) console.log(error);
+
+  const [active, setActive] = useState();
+
+  function displayBooks() {
+    return data.books.map((book) => {
+      return (
+        <li key={book.id} onClick={() => setActive(book)}>
+          {book.name}
+        </li>
+      );
+    });
+  }
+
   return (
     <div>
-      <ul className="book-list">
-        <li>Book Name</li>
-      </ul>
+      {data && displayBooks()} <BookDetails book={active} />
     </div>
   );
 }
