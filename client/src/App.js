@@ -1,8 +1,8 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-import "./App.css";
 import AddBook from "./components/AddBook";
 import BookList from "./components/BookList";
+import Title from "./components/Title";
 
 function App() {
   // create instance of Apollo Client to make GraphQL queries
@@ -14,6 +14,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App">
+        <Title />
         <BookList />
         <AddBook />
       </div>

@@ -10,7 +10,6 @@ export const typeDefs = gql`
   type Author {
     id: ID
     name: String
-    age: String
     books: [Book]
   }
   type Query {
@@ -26,11 +25,12 @@ export const typeDefs = gql`
   }
   input createAuthorInput {
     name: String
-    age: Int
   }
   type Mutation {
     createBook(input: createBookInput): Book
     createAuthor(input: createAuthorInput): Author
+    deleteBook(id: ID!): Int
+    deleteAuthor(id: ID!): Int
     deleteBooks: Int
     deleteAuthors: Int
   }

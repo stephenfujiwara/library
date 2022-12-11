@@ -16,6 +16,7 @@ export const QUERY_ALL_BOOKS = gql`
 export const GET_BOOK_BY_NAME = gql`
   query GetBook($bookName: String!) {
     book(name: $bookName) {
+      id
       name
       genre
     }
@@ -23,10 +24,14 @@ export const GET_BOOK_BY_NAME = gql`
 `;
 
 export const GET_AUTHOR_BY_NAME = gql`
-  query GetAuthor($name: String!) {
+  query Author($name: String!) {
     author(name: $name) {
+      id
       name
-      age
+      books {
+        id
+        name
+      }
     }
   }
 `;
@@ -46,7 +51,18 @@ export const CREATE_AUTHOR_MUTATION = gql`
     createAuthor(input: $input) {
       id
       name
-      age
     }
+  }
+`;
+
+export const DELETE_BOOK = gql`
+  mutation deleteBook($id: ID!) {
+    deleteBook(id: $id)
+  }
+`;
+
+export const DELETE_AUTHOR = gql`
+  mutation deleteAuthor($id: ID!) {
+    deleteAuthor(id: $id)
   }
 `;

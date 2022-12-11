@@ -44,13 +44,18 @@ export const resolvers = {
     createAuthor: async (parent, args) => {
       const newAuthor = new Author({
         name: args.input.name,
-        age: args.input.age,
       });
       const res = await newAuthor.save();
       return {
         id: res.id,
         ...res._doc,
       };
+    },
+    deleteBook: async (parents, args) => {
+      return (await Book.deleteOne({ id: args.id })).deletedCount;
+    },
+    deleteAuthor: async (parent, args) => {
+      return (await Author.deleteOne({ id: args.id })).deletedCount;
     },
     deleteBooks: async (parent, args) => {
       return (await Book.deleteMany({})).deletedCount;
