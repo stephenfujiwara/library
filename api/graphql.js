@@ -13,6 +13,7 @@ const server = new ApolloServer({
   resolvers: resolvers,
   introspection: true,
   playground: true,
+  persistedQueries: false,
 });
 
 const serverStart = server.start();
