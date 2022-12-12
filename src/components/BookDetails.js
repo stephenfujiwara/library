@@ -10,13 +10,14 @@ import {
 export default function BookDetails({ book, closeDetails }) {
   return (
     <div className="fixed w-1/2 h-full bottom-0 right-0">
-      <button
-        className="absolute z-20 right-16 top-36 bg-blue-500 text-white font-bold rounded py-2 px-4 shadow-lg hover:shadow-blue-500/50"
-        onClick={() => closeDetails()}
-      >
-        Delete Book
-      </button>
-      <h4 className="absolute z-20 bottom-4 right-8">Drag to Inspect! -</h4>
+      {book && (
+        <button
+          className="absolute z-20 right-16 top-36 bg-blue-500 text-white font-bold rounded py-2 px-4 shadow-lg hover:shadow-blue-500/50"
+          onClick={() => closeDetails()}
+        >
+          Delete Book
+        </button>
+      )}
       {book && (
         <Canvas shadows camera={{ position: [0, 0, 8] }}>
           <ambientLight intensity={0.5} />
@@ -35,12 +36,28 @@ export default function BookDetails({ book, closeDetails }) {
                 <meshStandardMaterial attach="material-4" color="blue" />
                 <meshStandardMaterial attach="material-5" color="blue" />
                 <Html transform occlude position={[0, 0.25, 0.26]}>
-                  <h1 style={{ fontSize: "20px", color: "white" }}>
+                  <h1
+                    style={{
+                      fontSize: "20px",
+                      color: "white",
+                      lineHeight: "1em",
+                      maxWidth: "5em",
+                      textAlign: "center",
+                    }}
+                  >
                     {book.name}
                   </h1>
                 </Html>
                 <Html transform occlude position={[0, -0.75, 0.26]}>
-                  <h2 style={{ fontSize: "14px", color: "white" }}>
+                  <h2
+                    style={{
+                      fontSize: "14px",
+                      color: "white",
+                      lineHeight: "1em",
+                      maxWidth: "7em",
+                      textAlign: "center",
+                    }}
+                  >
                     by {book.author.name}
                   </h2>
                 </Html>

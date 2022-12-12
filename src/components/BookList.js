@@ -22,6 +22,7 @@ export default function BookList() {
     setOpen(false);
     deleteBook({
       variables: { id: active.id },
+      fetchPolicy: "no-cache",
       refetchQueries: [{ query: QUERY_ALL_BOOKS }],
     });
     getAuthor({

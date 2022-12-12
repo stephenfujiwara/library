@@ -76,6 +76,7 @@ export default function AddBook() {
               variables: {
                 input: { name: title, genre: genre, authorName: author },
               },
+              fetchPolicy: "no-cache",
               refetchQueries: [{ query: QUERY_ALL_BOOKS }],
             });
             // upon creating new book entry, check if author exists, if not, create it

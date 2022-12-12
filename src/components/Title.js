@@ -7,8 +7,9 @@ export default function Title() {
         Welcome to the 3DLibrary!
       </div>
       <div className="text-center text-[12px]">
-        (Add a book to get started!)
+        Add a book to get started! (It may take some time...)
       </div>
+      <h4 className="fixed z-20 bottom-4 right-8">Drag to Inspect! -</h4>
     </div>
   );
 }
