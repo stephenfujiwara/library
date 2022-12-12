@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { Schema } from "mongoose";
 
 const bookSchema = new Schema({
   name: String,
@@ -6,4 +6,6 @@ const bookSchema = new Schema({
   authorName: String,
 });
 
-export const Book = model("Book", bookSchema);
+export const bookModel = (conn) => {
+  return conn.model("Book", bookSchema);
+};

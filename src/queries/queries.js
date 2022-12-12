@@ -57,12 +57,18 @@ export const CREATE_AUTHOR_MUTATION = gql`
 
 export const DELETE_BOOK = gql`
   mutation deleteBook($id: ID!) {
-    deleteBook(id: $id)
+    deleteBook(id: $id) {
+      id
+      name
+    }
   }
 `;
 
 export const DELETE_AUTHOR = gql`
   mutation deleteAuthor($id: ID!) {
-    deleteAuthor(id: $id)
+    deleteAuthor(id: $id) {
+      id
+      name
+    }
   }
 `;

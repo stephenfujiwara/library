@@ -60,7 +60,7 @@ export default function BookList() {
 
   return (
     <div>
-      <h2 className="absolute left-8 top-28">Stored Books:</h2>
+      <h2 className="absolute left-8 top-28">Stored Books: Click to View!</h2>
       {data && <ul className="w-1/2 pt-40 pl-6">{displayBooks()}</ul>}
       {data && open && (
         <BookDetails book={active} closeDetails={closeDetails} />

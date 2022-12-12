@@ -23,7 +23,7 @@ export default function AddBook() {
       <div className="flex items-center">
         <label
           className="block w-1/3 text-center text-gray-500 font-bold pr-4"
-          for="book-name"
+          htmlFor="book-name"
         >
           Book name
         </label>
@@ -39,7 +39,7 @@ export default function AddBook() {
       <div className="flex items-center">
         <label
           className="block w-1/3 text-center text-gray-500 font-bold pr-4"
-          for="genre-name"
+          htmlFor="genre-name"
         >
           Genre
         </label>
@@ -55,7 +55,7 @@ export default function AddBook() {
       <div className="flex items-center">
         <label
           className="block w-1/3 text-center text-gray-500 font-bold pr-4"
-          for="author-name"
+          htmlFor="author-name"
         >
           Author
         </label>

@@ -1,31 +1,22 @@
 import { ApolloServer } from "apollo-server-micro";
 import Cors from "micro-cors";
-import mongoose from "mongoose";
-import { typeDefs } from "./schema/type-defs";
-import { resolvers } from "./schema/resolvers";
 
-mongoose.set("strictQuery", true);
+import { typeDefs } from "./schema/type-defs.js";
+import { resolvers } from "./schema/resolvers.js";
+import { send } from "micro";
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  playground: true,
+  introspection: true,
+});
 
 const cors = Cors();
 
-const server = new ApolloServer({
-  typeDefs: typeDefs,
-  resolvers: resolvers,
-  introspection: true,
-  playground: true,
-  persistedQueries: false,
-});
-
-const serverStart = server.start();
-
-export default cors(async (req, res) => {
-  if (req.method === "OPTIONS") {
-    res.end();
-    return false;
-  }
-  await mongoose
-    .connect(process.env.MONGO_URI, { useNewUrlParser: true })
-    .then(() => console.log("mongodb connection successful"));
-  await serverStart;
-  await server.createHandler({ path: "/api/graphql" })(req, res);
+export default server.start().then(() => {
+  const handler = server.createHandler({ path: "/api/graphql" });
+  return cors((req, res) => {
+    req.method === "OPTIONS" ? send(res, 200, "ok") : handler(req, res);
+  });
 });
